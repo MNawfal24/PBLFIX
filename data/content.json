@@ -1,0 +1,91 @@
+{
+    "vision": "Menjadi laboratorium unggul rujukan nasional\r\nsebagai inkubator solusi cerdas berbasis data,\r\nyang berfungsi sebagai mitra strategis industri\r\nuntuk mengakselerasi transformasi bisnis dan\r\npengambilan keputusan yang berdampak",
+    "team": [
+        {
+            "name": "Rakhmat Arianto",
+            "role": "Kepala  Laboratorium",
+            "photo": null
+        }
+    ],
+    "facilities": [
+        "💻 High-spec Workstations",
+        "🧠 GPU for ML Training",
+        "🗃️ Data Repositories",
+        "🖥️ BI Dashboard Screens"
+    ],
+    "research": [
+        {
+            "title": "ANALITIK PRODUK DIGITAL & PLATFORM",
+            "desc": "Menganalisis data dari produk digital (aplikasi, website, IoT) untuk inovasi."
+        },
+        {
+            "title": "ANALITIKTEKS DAN NATURAL LANGUAGE PROCESSING (NLP) TERAPAN",
+            "desc": "Mengembangkan solusi cerdas dari data tidak terstrukturseperti teks."
+        },
+        {
+            "title": "Decision Intelligence",
+            "desc": "Optimization and simulation for planning."
+        }
+    ],
+    "activities": [
+        {
+            "title": "Workshops & Clinics",
+            "desc": "Hands-on sessions on tools like Python, Power BI, and SQL."
+        },
+        {
+            "title": "Industry Collaborations",
+            "desc": "Applied analytics projects with local partners."
+        },
+        {
+            "title": "Student Research",
+            "desc": "Capstone projects and publications guidance."
+        },
+        {
+            "title": "Community Meetups",
+            "desc": "Open talks, data challenges, and sharing."
+        }
+    ],
+    "publications": [
+        {
+            "year": "2025",
+            "text": "Robust Sales Forecasting with Hybrid Models — Journal of Applied Analytics"
+        },
+        {
+            "year": "2024",
+            "text": "Topic Modeling of Customer Feedback in Retail — International Conf. on Data"
+        },
+        {
+            "year": "2023",
+            "text": "Decision Intelligence for Inventory Planning — Regional Tech Symposium"
+        },
+        {
+            "year": "2025",
+            "text": "Nawfal Ngoding"
+        }
+    ],
+    "gallery": [
+        "uploads\/img_691082f93459c.jpg",
+        {
+            "src": "uploads\/img_6910855f7797f.jpg",
+            "caption": "testing 1"
+        },
+        {
+            "src": "uploads\/img_6910862d3bbb5.jpg",
+            "caption": "testing 2"
+        },
+        {
+            "src": "uploads\/img_69108634e07ea.jpg",
+            "caption": "testing 3"
+        },
+        {
+            "src": "uploads\/img_6910863d782bc.jpg",
+            "caption": "testing 4"
+        },
+        {
+            "src": "uploads\/img_69108645ca7f2.jpg",
+            "caption": "testing 5"
+        }
+    ],
+    "whatWeDo": [],
+    "bookingNotice": "Hello World"
+}

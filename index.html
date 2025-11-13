@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Laboratorium Business Analytics – Polinema IT</title>
+  <meta name="description"
+    content="Transforming Data into Decisions – Business Analytics Laboratory, Information Technology Department, Polinema." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Flatpickr Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+  <meta name="theme-color" content="#0b3a6f" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "system-ui", "sans-serif"],
+            display: ["Poppins", "Inter", "system-ui", "sans-serif"],
+          },
+          colors: {
+            navy: {
+              900: "#0A2540",
+              800: "#0B3A6F",
+              700: "#114B8C",
+            },
+            sky: {
+              50: "#EAF4FF",
+              100: "#D6EBFF",
+              300: "#8BC6FF",
+              400: "#54A9FF",
+            },
+          },
+          boxShadow: {
+            soft: "0 10px 30px rgba(16, 76, 140, 0.15)",
+          },
+          backgroundImage: {
+            "hero-grad":
+              "linear-gradient(135deg, #EAF4FF 0%, #FFFFFF 40%, #D6EBFF 100%)",
+            "cta-grad": "linear-gradient(135deg, #54A9FF 0%, #114B8C 100%)",
+            "card-grad":
+              "linear-gradient(180deg, rgba(84,169,255,0.08) 0%, rgba(17,75,140,0.05) 100%)",
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="antialiased text-navy-900">
+  <!-- Decorative background shapes -->
+  <div class="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-32 -left-24 h-80 w-80 rounded-full bg-sky-100 blur-3xl opacity-70"></div>
+    <div class="absolute top-20 -right-24 h-96 w-96 rounded-full bg-sky-300 blur-3xl opacity-30"></div>
+  </div>
+
+  <!-- Header / Nav -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/70 border-b border-sky-100">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="flex items-center gap-3">
+          <img src="assets/img/Logo.png" alt="Lab BA Polinema" class="h-9 w-9 rounded-md shadow soft"
+            onerror="this.style.display='none'" />
+          <div class="leading-tight">
+            <p class="font-display font-semibold text-navy-800">
+              Business Analytics Lab
+            </p>
+            <p class="text-xs text-navy-800/70">
+              Information Technology • Polinema
+            </p>
+          </div>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#home" class="nav-link">Beranda</a>
+          <a href="#profile" class="nav-link">Profil</a>
+          <a href="#facilities" class="nav-link">Facilitas</a>
+          <a href="#research" class="nav-link">Riset</a>
+          <a href="#activities" class="nav-link">Aktivitas</a>
+          <a href="#publications" class="nav-link">Publikasi</a>
+          <a href="#gallery" class="nav-link">Galeri</a>
+          <a href="#contact" class="nav-link">Kontak</a>
+          <a href="peminjaman.html" class="btn-primary text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition"> Peminjaman Lab </a>
+
+          </nav>
+        <div class="flex items-center gap-3">
+          <a href="cms/" class="hidden sm:inline-flex btn-primary">CMS Login</a>
+          <button
+            class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-md border border-sky-100 text-navy-800"
+            id="mobileMenuBtn" aria-label="Open menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="md:hidden hidden border-t border-sky-100 bg-white">
+      <div class="px-4 py-3 grid grid-cols-2 gap-2 text-sm">
+        <a href="#home" class="mobile-link">Beranda</a>
+        <a href="#profile" class="mobile-link">Profil</a>
+        <a href="#facilities" class="mobile-link">Fasilitas</a>
+        <a href="#research" class="mobile-link">Riset</a>
+        <a href="#activities" class="mobile-link">Aktivitas</a>
+        <a href="#publications" class="mobile-link">Publlikasi</a>
+        <a href="#gallery" class="mobile-link">Galeri</a>
+        <a href="#contact" class="mobile-link">Kontak</a>
+        <a href="cms/" class="col-span-2 btn-primary text-center">CMS Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="relative bg-hero-grad">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-24 lg:pb-28">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div>
+          <div
+            class="inline-flex items-center gap-2 bg-sky-50 text-navy-800 rounded-full px-3 py-1 text-xs border border-sky-100">
+            <span class="inline-block h-2 w-2 rounded-full bg-sky-400 animate-pulse"></span>
+            Data • AI • Visualization
+          </div>
+          <h1 class="font-display mt-4 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-navy-900 leading-tight">
+            Laboratorium <span class="text-sky-500">Bussiness</span>
+            <span class="text-navy-800">Analytics</span>
+          </h1>
+          <p class="mt-4 text-navy-900/80 max-w-xl">
+            <i>“Menciptakan Solusi, Bukan Sekedar Analisis”</i>
+          </p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#profile" class="btn-primary">Jelajahi Lebih Lanjut</a>
+            <a href="#research" class="btn-secondary">Lihat Riset</a>
+          </div>
+          <div class="mt-8 flex items-center gap-6 text-sm">
+            <div class="flex items-center gap-2">
+              <span class="stat-dot bg-sky-400"></span>Real datasets
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="stat-dot bg-navy-800"></span>Hands-on projects
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="stat-dot bg-sky-300"></span>Community events
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <!-- Mascot image -->
+          <div class="relative z-10">
+            <img src="assets/img/mascot.png" alt="Penguin mascot" class="mx-auto h-[360px] md:h-[420px] drop-shadow-xl"
+              onerror="this.style.opacity=0; this.style.height='0px'" />
+          </div>
+          <!-- Animated charts overlay -->
+          <div class="absolute inset-0 -z-0 flex items-center justify-center">
+            <div class="analytics-panel">
+              <div class="bars">
+                <span class="bar h-12" style="--d: 0"></span>
+                <span class="bar h-16" style="--d: 0.2s"></span>
+                <span class="bar h-9" style="--d: 0.4s"></span>
+                <span class="bar h-20" style="--d: 0.6s"></span>
+                <span class="bar h-14" style="--d: 0.8s"></span>
+              </div>
+              <svg class="line" viewBox="0 0 200 80" fill="none" stroke-width="3">
+                <defs>
+                  <linearGradient id="grad" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0%" stop-color="#54A9FF" />
+                    <stop offset="100%" stop-color="#114B8C" />
+                  </linearGradient>
+                </defs>
+                <path d="M5 60 L45 50 L85 40 L125 30 L165 20" stroke="url(#grad)" stroke-linecap="round" />
+                <circle cx="45" cy="50" r="3" fill="#54A9FF" />
+                <circle cx="85" cy="40" r="3" fill="#54A9FF" />
+                <circle cx="125" cy="30" r="3" fill="#54A9FF" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Profil -->
+  <section id="profile" class="py-16">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Kartu Visi -->
+        <div class="visi-misi-card">
+          <h2>Visi</h2>
+          <p>
+            Menjadi laboratorium unggul rujukan nasional sebagai inkubator
+            solusi cerdas berbasis data...
+          </p>
+
+          <h3>Misi</h3>
+          <ul>
+            <li>Mengembangkan riset terapan</li>
+            <li>Mengin­tegra­si­kan berbagai disiplin ilmu</li>
+            <li>Membangun kemitraan strategis dengan industri</li>
+            <li>Mengembangkan talenta (dosen dan mahasiswa)</li>
+            <li>Menjalankan tata kelola laboratorium profesional</li>
+          </ul>
+
+          <img src="assets/img/maskot .jpeg" alt="Maskot"
+            class="absolute right-4 bottom-4 h-32 w-auto opacity-20 pointer-events-none select-none" />
+        </div>
+
+        <!-- Kartu Latar Belakang -->
+        <div class="visi-misi-card">
+          <h2>Latar Belakang</h2>
+          <p>
+            Laboratorium ini dibangun untuk mendukung pembelajaran dan
+            penelitian analitik bisnis. Laboratorium ini berfungsi sebagai
+            pusat pembelajaran berbasis proyek, pusat penelitian terapan yang
+            dapat diuji ulang, dan pusat pengabdian yang menyelesaikan masalah
+            mitra secara terukur—selaras dengan visi dan misi Politeknik
+            Negeri Malang.
+          </p>
+
+          <img src="assets/img/maskot .jpeg" alt="Maskot"
+            class="absolute right-4 bottom-4 h-32 w-auto opacity-20 pointer-events-none select-none" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dosen-->
+  <section id="team" class="section-bg-gradient">
+    <div class="section-boxed">
+      <div class="section-inner">
+        <div class="flex items-center gap-3 mb-6">
+          <img src="assets/img/mascot.png" class="h-8 w-8" alt="" onerror="this.style.display='none'" />
+          <h2 class="section-title text-navy-900 m-0">Daftar Dosen Lab</h2>
+        </div>
+        <div id="teamGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fasilitas -->
+  <section id="facilities" class="py-8">
+    <div class="section-boxed">
+      <div class="section-inner">
+        <h2 class="section-title">Fasilitas</h2>
+        <div id="facilitiesGrid" class="grid sm:grid-cols-2 lg:grid-cols-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research" class="section-bg-gradient">
+    <div class="section-boxed">
+      <div class="section-inner">
+        <h2 class="section-title">Fokus Utama Riset</h2>
+        <div id="researchGrid" class="mt-6 grid md:grid-cols-3 gap-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities -->
+  <section id="activities" class="py-16 s">
+    <div class="section-boxed">
+      <div class="section-inner">
+        <h2 class="section-title">Aktivitas</h2>
+        <div id="activitiesGrid" class="mt-6 grid md:grid-cols-2 gap-6"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications" class="py-16">
+    <div class="section-boxed">
+      <div class="section-inner relative overflow-hidden">
+        <h2 class="section-title mb-6">Publikasi</h2>
+
+        <!-- Bungkus UL agar tidak sampai kanan -->
+        <div class="max-w-5xl pr-48"> <!-- 🔹 beri ruang lebih untuk maskot -->
+          <ul id="publicationsList" class="space-y-4"></ul>
+        </div>
+
+        <!-- Maskot besar di kanan bawah -->
+        <img src="assets/img/maskot .jpeg" alt="Maskot"
+          class="absolute bottom-0 right-8 w-48 opacity-25 select-none pointer-events-none" />
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Gallery -->
+  <section id="gallery" class="py-16">
+    <div class="section-boxed">
+      <div class="section-inner">
+        <h2 class="section-title">Gallery</h2>
+        <div class="relative">
+          <button id="galleryPrev"
+            class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 border border-sky-100 rounded-full h-10 w-10 flex items-center justify-center shadow hover:bg-white z-10">
+            ‹
+          </button>
+          <div id="galleryCarousel" class="overflow-hidden relative">
+            <div id="galleryTrack" class="flex transition-transform duration-500 ease-in-out gap-4"></div>
+          </div>
+          <button id="galleryNext"
+            class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 border border-sky-100 rounded-full h-10 w-10 flex items-center justify-center shadow hover:bg-white z-10">
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-16">
+    <div class="section-boxed">
+      <div class="section-inner">
+        <h2 class="section-title">Contact</h2>
+        <div class="mt-6 grid lg:grid-cols-2 gap-8">
+          <form class="card space-y-4"
+            onsubmit="event.preventDefault(); document.getElementById('contactSuccess').classList.remove('hidden'); this.reset();">
+            <div>
+              <label class="label" for="name">Name</label>
+              <input id="name" type="text" required class="input" placeholder="Your name" />
+            </div>
+            <div>
+              <label class="label" for="email">Email</label>
+              <input id="email" type="email" required class="input" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label class="label" for="message">Message</label>
+              <textarea id="message" required rows="4" class="input" placeholder="How can we help?"></textarea>
+            </div>
+            <button class="btn-primary w-full sm:w-auto" type="submit">
+              Send Message
+            </button>
+            <p id="contactSuccess" class="hidden text-sm text-green-700">
+              Thanks! We will get back to you soon.
+            </p>
+          </form>
+          <div class="card">
+            <p class="font-semibold">Stay Connected</p>
+            <div class="mt-4 space-y-3 text-sm text-navy-900/80">
+              <a target="_blank" href="https://instagram.com" class="social-link">Instagram</a>
+              <a target="_blank" href="https://youtube.com" class="social-link">YouTube</a>
+              <a target="_blank" href="https://linkedin.com" class="social-link">LinkedIn</a>
+            </div>
+            <div class="mt-6 text-sm text-navy-900/70">
+              <p>
+                Information Technology Department, Politeknik Negeri Malang
+              </p>
+              <p>Malang, Indonesia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="relative overflow-hidden bg-white border-t border-sky-100">
+    <div class="absolute -bottom-6 right-6 z-0 opacity-80" aria-hidden="true">
+      <img src="assets/img/mascot.png" class="h-24 w-24 animate-wiggle" alt="" onerror="this.style.display='none'" />
+    </div>
+    <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-navy-900/70 flex items-center gap-2">
+          <img src="assets/img/Logo.png" class="h-5 w-5 rounded" alt="" onerror="this.style.display='none'" />
+          © <span id="year"></span> Business Analytics Laboratory – Polinema
+          IT
+        </p>
+        <div class="flex items-center gap-4 text-sm">
+          <a href="#home" class="hover:text-sky-500">Back to top</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 bg-black/70 hidden items-center justify-center p-4 z-[60]">
+    <button id="lightboxClose"
+      class="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 text-navy-800 flex items-center justify-center">
+      ✕
+    </button>
+    <img id="lightboxImg" src="" alt="Preview" class="max-h-[85vh] max-w-[90vw] rounded-lg shadow-2xl" />
+  </div>
+
+  <!-- Mascot Greeter (first visit) -->
+  <div id="greeterModal" class="fixed inset-0 hidden items-center justify-center bg-black/50 p-4 z-[70]">
+    <div class="relative max-w-md w-full bg-white rounded-2xl border border-sky-100 shadow-2xl">
+      <button id="greeterClose"
+        class="absolute -top-3 -right-3 h-9 w-9 rounded-full bg-white border border-sky-100 shadow flex items-center justify-center">
+        ✕
+      </button>
+      <div class="p-6 text-center">
+        <img src="assets/img/maskot .jpeg" alt="Penguin mascot" class="mx-auto h-32 animate-wave"
+          onerror="this.style.display='none'" />
+        <h3 class="font-display text-xl mt-3 text-navy-900">
+          Welcome to Business Analytics Lab!
+        </h3>
+        <p class="text-sm text-navy-900/80 mt-2">
+          Transforming Data into Decisions. Explore our research, activities,
+          and publications.
+        </p>
+        <button id="greeterStart" class="btn-primary mt-4">Explore</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<
+
+
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peminjaman Lab – Business Analytics Lab</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ======= GLOBAL ======= */
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #EAF4FF, #FFFFFF 40%, #D6EBFF);
+      color: #0A2540;
+      margin: 0;
+      padding: 40px;
+    }
+    h1, h2, h3 { margin: 0; }
+
+    /* ======= HEADER ======= */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .header h2 {
+      font-weight: 700;
+      font-size: 22px;
+      color: #0A2540;
+    }
+    .back-btn {
+      background: #EAF4FF;
+      border: 1px solid #BBD6FF;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 14px;
+      color: #114B8C;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .back-btn:hover {
+      background: #D6EBFF;
+      transform: scale(1.03);
+    }
+
+    /* ======= LAYOUT ======= */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #D6EBFF;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(16, 76, 140, 0.15);
+    }
+
+    .label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      font-size: 14px;
+    }
+
+    .input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #D6EBFF;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 14px;
+      transition: border-color 0.2s;
+    }
+
+    .input:focus, select:focus {
+      border-color: #54A9FF;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #54A9FF, #114B8C);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.02);
+    }
+
+    /* ======= JADWAL GRID ======= */
+    .jadwal {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .day-card {
+      border: 1px solid #D6EBFF;
+      border-radius: 12px;
+      padding: 12px;
+      background: #F9FBFF;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .day-title {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .slot {
+      border: 1px solid #CFE3FF;
+      border-radius: 8px;
+      padding: 6px 0;
+      margin-bottom: 6px;
+      text-align: center;
+      font-size: 13px;
+      background: #fff;
+      transition: 0.2s;
+    }
+
+    .slot.booked {
+      background: #FFBABA;
+      border-color: #FF7070;
+      color: #7A0000;
+      font-weight: 600;
+    }
+
+    .slot:hover:not(.booked) {
+      background: #EAF4FF;
+      cursor: pointer;
+    }
+
+    .legend {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #0A2540B0;
+    }
+
+    .legend span {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      margin-right: 6px;
+    }
+
+    .legend .booked-color { background: #FFBABA; border: 1px solid #FF7070; }
+    .legend .free-color { background: #EAF4FF; border: 1px solid #BBD6FF; }
+
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+      .header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h2>Peminjaman Lab</h2>
+    <a href="index.html" class="back-btn">← Kembali ke Beranda</a>
+  </div>
+
+  <!-- BOOKING NOTICE (from CMS) -->
+  <div id="bookingNotice" class="card" style="margin-bottom:20px; display:none;">
+    <div id="bookingNoticeText" style="font-size:14px;color:#0B3A6F"></div>
+  </div>
+
+  <!-- KONTEN UTAMA -->
+  <div class="container">
+    <!-- FORM PEMINJAMAN -->
+    <form class="card" action="booking.php" method="get">
+      <label class="label">Nama</label>
+      <input class="input" type="text" name="name" placeholder="Nama peminjam" required>
+
+      <label class="label">NIM / NIP</label>
+      <input class="input" type="text" name="id" placeholder="NIM atau NIP" required>
+
+      <label class="label">Tanggal</label>
+      <input class="input" type="date" name="date" required>
+
+      <label class="label">Mulai</label>
+      <select class="input" name="start" required>
+        <option value="" disabled selected>Pilih jam mulai</option>
+        <option value="08:00">08:00</option><option value="09:00">09:00</option><option value="10:00">10:00</option>
+        <option value="11:00">11:00</option><option value="12:00">12:00</option><option value="13:00">13:00</option>
+        <option value="14:00">14:00</option><option value="15:00">15:00</option><option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+      </select>
+
+      <label class="label">Selesai</label>
+      <select class="input" name="end" required>
+        <option value="" disabled selected>Pilih jam selesai</option>
+        <option value="09:00">09:00</option><option value="10:00">10:00</option><option value="11:00">11:00</option>
+        <option value="12:00">12:00</option><option value="13:00">13:00</option><option value="14:00">14:00</option>
+        <option value="15:00">15:00</option><option value="16:00">16:00</option><option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+      </select>
+
+      <button class="btn-primary" type="submit">Pinjam Lab</button>
+      <p style="font-size:13px;opacity:0.8;margin-top:8px;">
+        Setelah submit Anda akan melihat jadwal; slot yang terisi akan berwarna merah.
+      </p>
+    </form>
+
+    <!-- JADWAL (dinamis 2 minggu via booking.php) -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <h3 style="font-weight:600;">Jadwal Peminjaman</h3>
+        <button id="refreshCal" type="button" class="btn-primary" style="padding:8px 12px;">Refresh Jadwal</button>
+      </div>
+      <iframe id="bookingFrame" src="booking.php" style="width:100%;height:720px;border:0;border-radius:12px;background:#fff;"></iframe>
+    </div>
+  </div>
+  <script>
+    // Load booking notice from content.json
+    fetch('data/content.json', {cache:'no-store'})
+      .then(r => r.ok ? r.json() : null)
+      .then(j => {
+        if (j && j.bookingNotice){
+          const box = document.getElementById('bookingNotice');
+          const txt = document.getElementById('bookingNoticeText');
+          txt.textContent = j.bookingNotice;
+          box.style.display = 'block';
+        }
+      }).catch(()=>{});
+  </script>
+</body>
+</html>
