@@ -49,6 +49,7 @@ $csrf = csrf_token();
   <main class="wrap" style="margin-top:16px">
     <div class="tabs">
       <a class="tab active" href="#vision">Vision</a>
+      <a class="tab" href="#branding">Branding</a>
       <a class="tab" href="#what">What We Do</a>
       <a class="tab" href="#team">Team</a>
       <a class="tab" href="#facilities">Facilities</a>
@@ -68,6 +69,32 @@ $csrf = csrf_token();
         <textarea name="vision" rows="3"><?php echo htmlspecialchars($data['vision'] ?? ''); ?></textarea>
         <div class="row" style="justify-content:flex-end"><button class="btn">Save</button></div>
       </form>
+    </section>
+
+    <!-- Branding -->
+    <section id="branding" class="card" style="margin-top:16px">
+      <h3>Branding</h3>
+      <form method="post" action="action.php" enctype="multipart/form-data" class="grid two">
+        <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($csrf); ?>">
+        <input type="hidden" name="section" value="branding">
+        <div>
+          <label>Nama Situs / Lab</label>
+          <input name="siteName" value="<?php echo htmlspecialchars($data['siteName'] ?? ''); ?>" placeholder="Business Analytics Lab">
+        </div>
+        <div>
+          <label>Logo (opsional, unggah untuk mengganti)</label>
+          <input type="file" name="logo" accept="image/*">
+        </div>
+        <div style="grid-column:1/-1;text-align:right"><button class="btn">Save</button></div>
+      </form>
+      <div class="row" style="margin-top:10px;gap:12px;align-items:center">
+        <strong>Pratinjau Logo Saat Ini:</strong>
+        <?php if(!empty($data['siteLogo'])): ?>
+          <img src="<?php echo htmlspecialchars('../'.$data['siteLogo']); ?>" alt="Logo" style="height:40px;border-radius:8px">
+        <?php else: ?>
+          <span class="note">Belum ada logo diunggah.</span>
+        <?php endif; ?>
+      </div>
     </section>
 
     <!-- Booking Notice -->

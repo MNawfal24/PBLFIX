@@ -288,13 +288,7 @@ for ($i = 0, $count = 0; $count < 10; $i++) {
     <div class="wrap">
         <div class="row">
             <h2>Jadwal Peminjaman Lab</h2>
-            <div style="display:flex; gap:8px; align-items:center;">
-                <form method="post" onsubmit="return confirm('Reset semua jadwal? Tindakan ini tidak dapat dibatalkan.');">
-                    <input type="hidden" name="reset" value="1">
-                    <button type="submit" class="btn-back" style="background:#ffecec;border-color:#ffb3b3;color:#7a0000">Reset Jadwal</button>
-                </form>
-                <a class="btn-back" href="index.html#contact">Kembali</a>
-            </div>
+            <div></div>
         </div>
         <?php if ($booking_notice !== ''): ?>
             <div class="alert ok" style="margin-bottom:10px;background:#f4f9ff;border:1px solid #d6ebff;color:#0B3A6F;">

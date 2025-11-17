@@ -7,6 +7,13 @@
   --sky-50: #eaf4ff;
 }
 
+body {
+  background: radial-gradient(1200px 600px at -10% -10%, #eaf4ff 0%, rgba(234,244,255,0) 60%),
+              radial-gradient(1000px 500px at 110% 0%, #d6ebff 0%, rgba(214,235,255,0) 55%),
+              linear-gradient(135deg, #f7fbff 0%, #eaf4ff 35%, #d6ebff 70%, #c7e0ff 100%);
+  min-height: 100vh;
+}
+
 .nav-link {
   color: rgb(10, 37, 64, 0.8);
 }
@@ -54,12 +61,11 @@
 }
 
 .card {
-  background: linear-gradient(180deg,
-      rgba(84, 169, 255, 0.06),
-      rgba(17, 75, 140, 0.04));
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--sky-100);
   border-radius: 1rem;
   padding: 1.25rem;
+  box-shadow: 0 16px 36px rgba(16, 76, 140, 0.12);
 }
 
 .section-title {

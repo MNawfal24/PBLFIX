@@ -1,3 +1,18 @@
+// Simple polling: check content version every 15s; if changed, reload page
+let lastVersion = 0; let pollTimer = null;
+function startAutoRefresh(v){
+  if (typeof v === 'number') lastVersion = v;
+  if (pollTimer) return;
+  pollTimer = setInterval(async ()=>{
+    try{
+      const r = await fetch('data/content.json?_=' + Date.now(), {cache:'no-store'});
+      if(!r.ok) return; const j = await r.json();
+      if (j && j.version && j.version !== lastVersion){
+        location.reload();
+      }
+    }catch(e){}
+  }, 15000);
+}
 // Mobile menu toggle
 const mobileBtn = document.getElementById('mobileMenuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -65,6 +80,8 @@ async function loadContent(){
     if(!res.ok) throw new Error('Failed to load content');
     const data = await res.json();
     renderContent(data);
+    // Start polling to auto-refresh when CMS updates version
+    startAutoRefresh(data?.version || 0);
   }catch(err){
     // silently ignore in case file missing
     console.warn(err);
@@ -79,6 +96,19 @@ function el(tag, cls, text){
 }
 
 function renderContent(d){
+  // Branding
+  const nameEl = document.getElementById('siteNameText');
+  const logoEl = document.getElementById('siteLogoImg');
+  if (nameEl && d.siteName) nameEl.textContent = d.siteName;
+  if (logoEl){
+    if (d.siteLogo){
+      logoEl.src = d.siteLogo;
+      logoEl.style.display = '';
+    } else {
+      // keep default asset logo if provided; otherwise hide
+      // logoEl.style.display = 'none';
+    }
+  }
   // Vision
   const v = document.getElementById('visionText');
   if(v && d.vision) v.textContent = d.vision;

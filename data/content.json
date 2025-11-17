@@ -87,5 +87,8 @@
         }
     ],
     "whatWeDo": [],
-    "bookingNotice": "Hello World"
+    "bookingNotice": "Hello World",
+    "siteName": "Business Analytics Lab",
+    "siteLogo": "uploads\/img_691af173901a8.jpg",
+    "version": 1763373427
 }

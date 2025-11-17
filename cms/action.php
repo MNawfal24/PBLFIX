@@ -106,6 +106,14 @@ switch($section){
     $data['bookingNotice'] = trim($_POST['bookingNotice'] ?? '');
     break;
 
+  case 'branding':
+    // Update site name
+    $data['siteName'] = trim($_POST['siteName'] ?? ($data['siteName'] ?? 'Business Analytics Lab'));
+    // Upload logo if provided
+    $logo = upload_image('logo');
+    if ($logo) { $data['siteLogo'] = $logo; }
+    break;
+
   case 'gallery':
     if ($op === 'create'){
       $up = upload_image('image');

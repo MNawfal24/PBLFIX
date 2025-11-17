@@ -19,19 +19,27 @@ function content_path(){ return __DIR__ . '/../data/content.json'; }
 function load_content(){
   $file = content_path();
   if (!file_exists($file)) return [
-    'vision'=>'', 'whatWeDo'=>[], 'team'=>[], 'facilities'=>[], 'research'=>[], 'activities'=>[], 'publications'=>[], 'gallery'=>[], 'bookingNotice'=>''
+    'vision'=>'',
+    'whatWeDo'=>[], 'team'=>[], 'facilities'=>[], 'research'=>[], 'activities'=>[], 'publications'=>[], 'gallery'=>[],
+    'bookingNotice'=>'',
+    'siteName'=>'Business Analytics Lab',
+    'siteLogo'=>''
   ];
   $data = json_decode(file_get_contents($file), true);
   if (!is_array($data)) $data = [];
   // Ensure arrays exist
   foreach(['whatWeDo','team','facilities','research','activities','publications','gallery'] as $k){ if (!isset($data[$k]) || !is_array($data[$k])) $data[$k]=[]; }
   if (!isset($data['bookingNotice'])) $data['bookingNotice'] = '';
+  if (!isset($data['siteName'])) $data['siteName'] = 'Business Analytics Lab';
+  if (!isset($data['siteLogo'])) $data['siteLogo'] = '';
+  if (!isset($data['version'])) $data['version'] = time();
   return $data;
 }
 
 function save_content($data){
   $file = content_path();
   if (!is_dir(dirname($file))) mkdir(dirname($file), 0775, true);
+  $data['version'] = time(); // bump version for cache-busting / auto-refresh
   file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
 }
 
