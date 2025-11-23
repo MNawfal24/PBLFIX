@@ -236,3 +236,34 @@ if (gtrack && Array.isArray(d.gallery)) {
 
 
 loadContent();
+
+// ====== Peminjaman page logic (moved from inline script) ======
+function initPeminjamanPage(){
+  const noticeBox = document.getElementById('bookingNotice');
+  const noticeText = document.getElementById('bookingNoticeText');
+  const bookingFrame = document.getElementById('bookingFrame');
+  const refreshBtn = document.getElementById('refreshCal');
+
+  if (!bookingFrame) return; // bukan di halaman peminjaman
+
+  // Load booking notice from content.json
+  fetch('data/content.json', {cache:'no-store'})
+    .then(r => r.ok ? r.json() : null)
+    .then(j => {
+      if (j && j.bookingNotice && noticeBox && noticeText){
+        noticeText.textContent = j.bookingNotice;
+        noticeBox.style.display = 'block';
+      }
+    }).catch(()=>{});
+
+  // Tombol refresh iframe jadwal
+  if (refreshBtn){
+    refreshBtn.addEventListener('click', ()=>{
+      const url = new URL(bookingFrame.src, window.location.href);
+      url.searchParams.set('ts', Date.now().toString());
+      bookingFrame.src = url.toString();
+    });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initPeminjamanPage);

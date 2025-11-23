@@ -12,7 +12,6 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="assets/styles.css" />
   <link rel="icon" href="assets/favicon.ico" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -21,41 +20,7 @@
 
 
   <meta name="theme-color" content="#0b3a6f" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ["Inter", "system-ui", "sans-serif"],
-            display: ["Poppins", "Inter", "system-ui", "sans-serif"],
-          },
-          colors: {
-            navy: {
-              900: "#0A2540",
-              800: "#0B3A6F",
-              700: "#114B8C",
-            },
-            sky: {
-              50: "#EAF4FF",
-              100: "#D6EBFF",
-              300: "#8BC6FF",
-              400: "#54A9FF",
-            },
-          },
-          boxShadow: {
-            soft: "0 10px 30px rgba(16, 76, 140, 0.15)",
-          },
-          backgroundImage: {
-            "hero-grad":
-              "linear-gradient(135deg, #EAF4FF 0%, #FFFFFF 40%, #D6EBFF 100%)",
-            "cta-grad": "linear-gradient(135deg, #54A9FF 0%, #114B8C 100%)",
-            "card-grad":
-              "linear-gradient(180deg, rgba(84,169,255,0.08) 0%, rgba(17,75,140,0.05) 100%)",
-          },
-        },
-      },
-    };
-  </script>
+  
 </head>
 
 <body class="antialiased text-navy-900">
@@ -81,43 +46,18 @@
             </p>
           </div>
         </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm">
+        <nav class="flex items-center gap-4 text-sm flex-wrap justify-end">
           <a href="#home" class="nav-link">Beranda</a>
           <a href="#profile" class="nav-link">Profil</a>
-          <a href="#facilities" class="nav-link">Facilitas</a>
-          <a href="#research" class="nav-link">Riset</a>
+          <a href="#facilities" class="nav-link">Fasilitas</a>
           <a href="#activities" class="nav-link">Aktivitas</a>
+          <a href="#research" class="nav-link">Riset</a>
           <a href="#publications" class="nav-link">Publikasi</a>
           <a href="#gallery" class="nav-link">Galeri</a>
           <a href="#contact" class="nav-link">Kontak</a>
-          <a href="peminjaman.html" class="btn-primary text-white px-4 py-2 rounded-lg shadow-md hover:shadow-lg transition"> Peminjaman Lab </a>
-
-          </nav>
-        <div class="flex items-center gap-3">
-          <a href="cms/" class="hidden sm:inline-flex btn-primary">CMS Login</a>
-          <button
-            class="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-md border border-sky-100 text-navy-800"
-            id="mobileMenuBtn" aria-label="Open menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-sky-100 bg-white">
-      <div class="px-4 py-3 grid grid-cols-2 gap-2 text-sm">
-        <a href="#home" class="mobile-link">Beranda</a>
-        <a href="#profile" class="mobile-link">Profil</a>
-        <a href="#facilities" class="mobile-link">Fasilitas</a>
-        <a href="#research" class="mobile-link">Riset</a>
-        <a href="#activities" class="mobile-link">Aktivitas</a>
-        <a href="#publications" class="mobile-link">Publlikasi</a>
-        <a href="#gallery" class="mobile-link">Galeri</a>
-        <a href="#contact" class="mobile-link">Kontak</a>
-        <a href="cms/" class="col-span-2 btn-primary text-center">CMS Login</a>
+          <a href="peminjaman.html" class="btn-primary">Peminjaman Lab</a>
+          <a href="cms/" class="btn-primary">CMS Login</a>
+        </nav>
       </div>
     </div>
   </header>
@@ -156,12 +96,7 @@
           </div>
         </div>
         <div class="relative">
-          <!-- Mascot image -->
-          <div class="relative z-10">
-            <img src="assets/img/mascot.png" alt="Penguin mascot" class="mx-auto h-[360px] md:h-[420px] drop-shadow-xl"
-              onerror="this.style.opacity=0; this.style.height='0px'" />
-          </div>
-          <!-- Animated charts overlay -->
+          <!-- Animated charts overlay (tanpa mascot) -->
           <div class="absolute inset-0 -z-0 flex items-center justify-center">
             <div class="analytics-panel">
               <div class="bars">
@@ -211,8 +146,6 @@
             <li>Menjalankan tata kelola laboratorium profesional</li>
           </ul>
 
-          <img src="assets/img/maskot .jpeg" alt="Maskot"
-            class="absolute right-4 bottom-4 h-32 w-auto opacity-20 pointer-events-none select-none" />
         </div>
 
         <!-- Kartu Latar Belakang -->
@@ -226,9 +159,6 @@
             mitra secara terukur—selaras dengan visi dan misi Politeknik
             Negeri Malang.
           </p>
-
-          <img src="assets/img/maskot .jpeg" alt="Maskot"
-            class="absolute right-4 bottom-4 h-32 w-auto opacity-20 pointer-events-none select-none" />
         </div>
       </div>
     </div>
@@ -239,7 +169,6 @@
     <div class="section-boxed">
       <div class="section-inner">
         <div class="flex items-center gap-3 mb-6">
-          <img src="assets/img/mascot.png" class="h-8 w-8" alt="" onerror="this.style.display='none'" />
           <h2 class="section-title text-navy-900 m-0">Daftar Dosen Lab</h2>
         </div>
         <div id="teamGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -288,9 +217,6 @@
           <ul id="publicationsList" class="space-y-4"></ul>
         </div>
 
-        <!-- Maskot besar di kanan bawah -->
-        <img src="assets/img/maskot .jpeg" alt="Maskot"
-          class="absolute bottom-0 right-8 w-48 opacity-25 select-none pointer-events-none" />
       </div>
     </div>
   </section>
@@ -364,20 +290,13 @@
     </div>
   </section>
 
-  </div>
-  </section>
-
-
   <!-- Footer -->
   <footer class="relative overflow-hidden bg-white border-t border-sky-100">
-    <div class="absolute -bottom-6 right-6 z-0 opacity-80" aria-hidden="true">
-      <img src="assets/img/mascot.png" class="h-24 w-24 animate-wiggle" alt="" onerror="this.style.display='none'" />
-    </div>
     <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-sm text-navy-900/70 flex items-center gap-2">
           <img src="assets/img/Logo.png" class="h-5 w-5 rounded" alt="" onerror="this.style.display='none'" />
-          © <span id="year"></span> Business Analytics Laboratory – Polinema
+          &copy; <span id="year"></span> Business Analytics Laboratory – Polinema
           IT
         </p>
         <div class="flex items-center gap-4 text-sm">
@@ -391,7 +310,7 @@
   <div id="lightbox" class="fixed inset-0 bg-black/70 hidden items-center justify-center p-4 z-[60]">
     <button id="lightboxClose"
       class="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/90 text-navy-800 flex items-center justify-center">
-      ✕
+      &times;
     </button>
     <img id="lightboxImg" src="" alt="Preview" class="max-h-[85vh] max-w-[90vw] rounded-lg shadow-2xl" />
   </div>
@@ -401,11 +320,9 @@
     <div class="relative max-w-md w-full bg-white rounded-2xl border border-sky-100 shadow-2xl">
       <button id="greeterClose"
         class="absolute -top-3 -right-3 h-9 w-9 rounded-full bg-white border border-sky-100 shadow flex items-center justify-center">
-        ✕
+        &times;
       </button>
       <div class="p-6 text-center">
-        <img src="assets/img/maskot .jpeg" alt="Penguin mascot" class="mx-auto h-32 animate-wave"
-          onerror="this.style.display='none'" />
         <h3 class="font-display text-xl mt-3 text-navy-900">
           Welcome to Business Analytics Lab!
         </h3>
@@ -420,9 +337,5 @@
 
   <script src="assets/app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<
-
-
 </body>
-
 </html>

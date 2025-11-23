@@ -161,161 +161,40 @@ for ($i = 0, $count = 0; $count < 10; $i++) {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/styles.css">
-    <style>
-        body {
-            font-family: Inter, system-ui, sans-serif;
-        }
-
-        .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 16px
-        }
-
-        .row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: space-between
-        }
-
-        .note {
-            font-size: 12px;
-            color: #0A2540CC
-        }
-
-        .head {
-            background: rgba(0, 0, 128, .9);
-            color: #EAF0FF;
-            padding: 16px;
-            border-radius: 14px;
-            margin: 16px 0
-        }
-
-        .grid {
-            display: grid;
-            gap: 10px;
-            grid-template-columns: repeat(5, 1fr)
-        }
-
-        .col {
-            background: #fff;
-            border: 1px solid var(--sky-100);
-            border-radius: 12px;
-            overflow: hidden
-        }
-
-        .col h4 {
-            margin: 0;
-            padding: 10px 12px;
-            background: #F6FAFF;
-            border-bottom: 1px solid var(--sky-100)
-        }
-        .col .date-sub {
-            margin: 0;
-            padding: 6px 12px 8px;
-            background: #F6FAFF;
-            border-bottom: 1px solid var(--sky-100);
-            font-size: 12px;
-            color: #0A2540B0;
-            text-align: center;
-        }
-
-        .slot {
-            display: block;
-            padding: 8px 10px;
-            margin: 8px;
-            border-radius: 10px;
-            border: 1px solid #E6F0FF;
-            text-align: center
-        }
-
-        .slot.free {
-            background: #ffffff
-        }
-
-        .slot.busy {
-            background: #ffd6d6;
-            border-color: #ffb3b3;
-            color: #7a0000
-        }
-
-        .legend {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            font-size: 13px
-        }
-
-        .legend span {
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            border-radius: 4px;
-            border: 1px solid #E6F0FF
-        }
-
-        .btn-back {
-            background: #fff;
-            color: #0B3A6F;
-            border: 1px solid #D6EBFF;
-            border-radius: 10px;
-            padding: 8px 12px;
-            text-decoration: none
-        }
-
-        .alert {
-            padding: 10px 12px;
-            border-radius: 10px;
-            margin-top: 10px
-        }
-
-        .ok {
-            background: #e6ffed;
-            border: 1px solid #b7f5c5;
-            color: #0a5f1a
-        }
-
-        .err {
-            background: #ffeaea;
-            border: 1px solid #ffc7c7;
-            color: #7a0000
-        }
-    </style>
 </head>
 
-<body>
-    <div class="wrap">
-        <div class="row">
+<body class="booking-body">
+    <div class="booking-wrap">
+        <div class="booking-row">
             <h2>Jadwal Peminjaman Lab</h2>
             <div></div>
         </div>
         <?php if ($booking_notice !== ''): ?>
-            <div class="alert ok" style="margin-bottom:10px;background:#f4f9ff;border:1px solid #d6ebff;color:#0B3A6F;">
+            <div class="booking-alert booking-alert-info">
                 <?php echo htmlspecialchars($booking_notice); ?>
             </div>
         <?php endif; ?>
-        <p class="note">Menampilkan 2 minggu (hari kerja Senin–Jumat). Slot terisi ditandai merah.</p>
+        <p class="booking-note">Menampilkan 2 minggu (hari kerja Senin–Jumat). Slot terisi ditandai merah.</p>
 
         <?php if ($status_ok !== null): ?>
-            <div class="alert <?php echo $status_ok ? 'ok' : 'err'; ?>"><?php echo htmlspecialchars($status_msg); ?></div>
+            <div class="booking-alert <?php echo $status_ok ? 'booking-alert-ok' : 'booking-alert-err'; ?>"><?php echo htmlspecialchars($status_msg); ?></div>
         <?php endif; ?>
 
-        <div class="head">
-            <div class="legend">
-                <span style="background:#ffffff"></span> Tersedia
-                <span style="background:#ffd6d6;border-color:#ffb3b3"></span> Terisi
+        <div class="booking-head">
+            <div class="booking-legend">
+                <span class="booking-legend-swatch" style="background:#ffffff"></span> Tersedia
+                <span class="booking-legend-swatch" style="background:#ffd6d6;border-color:#ffb3b3"></span> Terisi
             </div>
         </div>
 
-        <div class="grid">
+        <div class="booking-grid">
             <?php foreach ($days as $ts): $d = ymd($ts); ?>
-                <div class="col">
-                    <h4><?php echo day_name_id($ts); ?></h4>
-                    <div class="date-sub"><?php echo date_id($ts); ?></div>
-                    <div style="padding:6px">
+                <div class="booking-col">
+                    <h4 class="booking-col-header"><?php echo day_name_id($ts); ?></h4>
+                    <div class="booking-col-date"><?php echo date_id($ts); ?></div>
+                    <div class="booking-col-body">
                         <?php foreach ($SLOTS as $slot): $busy = isset($bookings[$d][$slot]); ?>
-                            <div class="slot <?php echo $busy ? 'busy' : 'free'; ?>">
+                            <div class="booking-slot <?php echo $busy ? 'busy' : 'free'; ?>">
                                 <?php echo htmlspecialchars($slot); ?>
                             </div>
                         <?php endforeach; ?>
