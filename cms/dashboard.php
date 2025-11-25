@@ -35,6 +35,7 @@ $csrf = csrf_token();
       <a class="cms-tab" href="#team">Team</a>
       <a class="cms-tab" href="#facilities">Facilities</a>
       <a class="cms-tab" href="#research">Research</a>
+      <a class="cms-tab" href="#news">News</a>
       <a class="cms-tab" href="#activities">Activities</a>
       <a class="cms-tab" href="#publications">Publications</a>
       <a class="cms-tab" href="#gallery">Gallery</a>
@@ -224,34 +225,55 @@ $csrf = csrf_token();
       </form>
     </section>
 
-    <!-- Activities -->
-    <section id="activities" class="cms-card" style="margin-top:16px">
-      <h3>Activities</h3>
+    <!-- News / Berita -->
+    <section id="news" class="cms-card" style="margin-top:16px">
+      <h3>News / Berita</h3>
       <table>
-        <tr><th>Title</th><th>Description</th><th>Actions</th></tr>
-        <?php foreach($data['activities'] as $i=>$a): ?>
+        <tr><th>Image</th><th>Title</th><th>Date</th><th>Excerpt</th><th>Actions</th></tr>
+        <?php foreach($data['news'] as $i=>$n): ?>
+          <?php $img = $n['image'] ?? ''; $preview = $img; if (is_string($preview) && strpos($preview,'uploads/')===0) { $preview = '../'.$preview; } ?>
           <tr>
-            <td><?php echo htmlspecialchars($a['title']??''); ?></td>
-            <td><?php echo htmlspecialchars($a['desc']??''); ?></td>
+            <td><?php if($img): ?><img src="<?php echo htmlspecialchars($preview); ?>" style="height:40px;border-radius:6px"><?php endif; ?></td>
+            <td><?php echo htmlspecialchars($n['title']??''); ?></td>
+            <td><?php echo htmlspecialchars($n['date']??''); ?></td>
+            <td><?php echo htmlspecialchars($n['excerpt']??''); ?></td>
             <td>
               <form style="display:inline" method="post" action="action.php">
                 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($csrf); ?>">
-                <input type="hidden" name="section" value="activities">
+                <input type="hidden" name="section" value="news">
                 <input type="hidden" name="op" value="delete">
                 <input type="hidden" name="index" value="<?php echo $i; ?>">
-                <button class="cms-btn-outline" onclick="return confirm('Delete activity?')">Delete</button>
+                <button class="cms-btn-outline" onclick="return confirm('Delete this news item?')">Delete</button>
               </form>
             </td>
           </tr>
         <?php endforeach; ?>
       </table>
-      <form method="post" action="action.php" class="grid three" style="margin-top:10px">
+      <form method="post" action="action.php" enctype="multipart/form-data" class="cms-grid cms-grid-two" style="margin-top:10px">
         <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($csrf); ?>">
-        <input type="hidden" name="section" value="activities">
+        <input type="hidden" name="section" value="news">
         <input type="hidden" name="op" value="create">
-        <input name="title" placeholder="Title">
-        <input name="desc" placeholder="Description">
-        <div style="grid-column:1/-1;text-align:right"><button class="btn">Add</button></div>
+        <div>
+          <label>Judul Berita</label>
+          <input class="cms-input" name="title" placeholder="Judul berita">
+        </div>
+        <div>
+          <label>Tanggal</label>
+          <input class="cms-input" type="date" name="date">
+        </div>
+        <div>
+          <label>Ringkasan Singkat (opsional)</label>
+          <textarea class="cms-textarea" name="excerpt" rows="2" placeholder="Ringkasan 1–2 kalimat"></textarea>
+        </div>
+        <div>
+          <label>Gambar</label>
+          <input class="cms-input" type="file" name="image" accept="image/*">
+        </div>
+        <div style="grid-column:1/-1">
+          <label>Isi Lengkap Berita</label>
+          <textarea class="cms-textarea" name="content" rows="4" placeholder="Tulis isi lengkap berita di sini"></textarea>
+        </div>
+        <div style="grid-column:1/-1;text-align:right"><button class="cms-btn">Tambah Berita</button></div>
       </form>
     </section>
 
@@ -259,11 +281,20 @@ $csrf = csrf_token();
     <section id="publications" class="cms-card" style="margin-top:16px">
       <h3>Publications</h3>
       <table>
-        <tr><th>Year</th><th>Text</th><th>Actions</th></tr>
+        <tr><th>Year</th><th>Text</th><th>SINTA Link</th><th>Actions</th></tr>
         <?php foreach($data['publications'] as $i=>$p): ?>
           <tr>
             <td><?php echo htmlspecialchars($p['year']??''); ?></td>
             <td><?php echo htmlspecialchars($p['text']??''); ?></td>
+            <td>
+              <?php if (!empty($p['sinta_link'])): ?>
+                <a href="<?php echo htmlspecialchars($p['sinta_link']); ?>" target="_blank" rel="noopener noreferrer">
+                  <?php echo htmlspecialchars($p['sinta_link']); ?>
+                </a>
+              <?php else: ?>
+                <span class="cms-note">(no SINTA link)</span>
+              <?php endif; ?>
+            </td>
             <td>
               <form style="display:inline" method="post" action="action.php">
                 <input type="hidden" name="csrf" value="<?php echo htmlspecialchars($csrf); ?>">
@@ -282,6 +313,7 @@ $csrf = csrf_token();
         <input type="hidden" name="op" value="create">
         <input class="cms-input" name="year" placeholder="Year">
         <input class="cms-input" name="text" placeholder="Text">
+        <input class="cms-input" name="sinta_link" placeholder="Link SINTA (opsional)">
         <div style="grid-column:1/-1;text-align:right"><button class="cms-btn">Add</button></div>
       </form>
     </section>

@@ -20,7 +20,7 @@ function load_content(){
   $file = content_path();
   if (!file_exists($file)) return [
     'vision'=>'',
-    'whatWeDo'=>[], 'team'=>[], 'facilities'=>[], 'research'=>[], 'activities'=>[], 'publications'=>[], 'gallery'=>[],
+    'whatWeDo'=>[], 'team'=>[], 'facilities'=>[], 'research'=>[], 'activities'=>[], 'news'=>[], 'publications'=>[], 'gallery'=>[],
     'bookingNotice'=>'',
     'siteName'=>'Business Analytics Lab',
     'siteLogo'=>''
@@ -28,7 +28,7 @@ function load_content(){
   $data = json_decode(file_get_contents($file), true);
   if (!is_array($data)) $data = [];
   // Ensure arrays exist
-  foreach(['whatWeDo','team','facilities','research','activities','publications','gallery'] as $k){ if (!isset($data[$k]) || !is_array($data[$k])) $data[$k]=[]; }
+  foreach(['whatWeDo','team','facilities','research','activities','news','publications','gallery'] as $k){ if (!isset($data[$k]) || !is_array($data[$k])) $data[$k]=[]; }
   if (!isset($data['bookingNotice'])) $data['bookingNotice'] = '';
   if (!isset($data['siteName'])) $data['siteName'] = 'Business Analytics Lab';
   if (!isset($data['siteLogo'])) $data['siteLogo'] = '';

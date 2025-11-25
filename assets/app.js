@@ -22,8 +22,11 @@ if (mobileBtn && mobileMenu){
   });
 }
 
-// Year in footer
-document.getElementById('year').textContent = new Date().getFullYear();
+// Year in footer (guard if element exists)
+const yearEl = document.getElementById('year');
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
 
 // Smooth scroll for internal links
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
@@ -166,14 +169,39 @@ if (rgrid && Array.isArray(d.research)) {
 
 
 
-  // Activities
-  const agrid = document.getElementById('activitiesGrid');
-  if(agrid && Array.isArray(d.activities)){
-    agrid.innerHTML = '';
+  // Activities / News section rendered as news cards
+  const newsGrid = document.getElementById('activitiesGrid');
+  const newsItems = Array.isArray(d.news) ? d.news : [];
+  window.__newsItems = newsItems;
+  if (newsGrid && newsItems.length){
+    newsGrid.innerHTML = '';
+    newsItems.forEach((item, idx)=>{
+      const card = el('div','news-card');
+      card.dataset.index = String(idx);
+      if (item.image){
+        const img = el('img','news-image');
+        img.src = item.image;
+        img.alt = item.title || '';
+        card.append(img);
+      }
+      const body = el('div','news-content');
+      const title = el('h3','news-title', item.title || '');
+      const meta = el('div','news-date', item.date ? new Date(item.date).toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'}) : '');
+      const excerpt = el('p','news-excerpt', item.excerpt || '');
+      const more = el('span','read-more','Baca Selengkapnya →');
+      body.append(title, meta, excerpt, more);
+      card.append(body);
+      card.addEventListener('click', ()=>{
+        openNewsModal(idx);
+      });
+      newsGrid.append(card);
+    });
+  } else if (newsGrid && Array.isArray(d.activities)){
+    newsGrid.innerHTML = '';
     d.activities.forEach(a=>{
       const card = el('div','activity-card');
       card.append(el('p','font-semibold', a.title || ''), el('p','text-sm text-navy-900/70', a.desc || ''));
-      agrid.append(card);
+      newsGrid.append(card);
     });
   }
 
@@ -184,7 +212,23 @@ if (rgrid && Array.isArray(d.research)) {
     d.publications.forEach(p=>{
       const li = el('li','pub-item');
       const tag = el('span','tag', p.year || '');
-      li.append(tag, document.createTextNode(' '+ (p.text || '')));
+
+      const text = p.text || '';
+      const link = (p.sinta_link || '').trim();
+
+      li.append(tag, document.createTextNode(' '));
+
+      if (link) {
+        const a = document.createElement('a');
+        a.href = link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = text || link;
+        li.appendChild(a);
+      } else {
+        li.appendChild(document.createTextNode(text));
+      }
+
       plist.append(li);
     });
   }
@@ -420,9 +464,70 @@ function initGalleryCarousel() {
   updateGallery();
 }
 
+// Fungsi untuk membuka popup berita
+function openNewsModal(index) {
+  const modal = document.getElementById('newsModal');
+  const content = document.getElementById('newsModalContent');
+  if (!modal || !content) return;
+  const list = window.__newsItems || [];
+  const newsItem = list[index];
+  if (!newsItem) return;
+
+  const formattedDate = newsItem.date ? new Date(newsItem.date).toLocaleDateString('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }) : '';
+  const rawBody = (newsItem.content || '').replace(/\r\n/g, '\n');
+  const bodyHtml = rawBody
+    .split('\n')
+    .map(p => p.trim())
+    .filter(p => p.length)
+    .map(p => `<p>${p}</p>`)
+    .join('');
+
+  content.innerHTML = `
+    <div class="news-modal-content">
+      ${newsItem.image ? `<img src="${newsItem.image}" alt="${newsItem.title || ''}" class="news-modal-image">` : ''}
+      <h1 class="news-modal-title">${newsItem.title || ''}</h1>
+      <div class="news-modal-meta">
+        <span>${formattedDate}</span>
+      </div>
+      <div class="news-modal-body">
+        ${bodyHtml}
+      </div>
+    </div>
+  `;
+  // Tampilkan popup dengan kelas .active (CSS mengatur opacity/visibility)
+  modal.classList.add('active');
+}
+
+// Tutup popup
+document.getElementById('closeNewsModal')?.addEventListener('click', () => {
+  const modal = document.getElementById('newsModal');
+  if (!modal) return;
+  modal.classList.remove('active');
+});
+
+// Tutup popup saat mengklik di luar konten
+document.getElementById('newsModal')?.addEventListener('click', (e) => {
+  const modal = document.getElementById('newsModal');
+  if (!modal) return;
+  if (e.target === modal) {
+    const closeBtn = document.getElementById('closeNewsModal');
+    if (closeBtn) closeBtn.click();
+  }
+});
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   initPeminjamanPage();
   initGalleryNavigation();
   initGalleryCarousel();
+  attachLightbox();
+  
+  // Pastikan konten dimuat setelah DOM selesai dimuat
+  if (typeof loadContent === 'function') {
+    loadContent();
+  }
 });

@@ -91,14 +91,44 @@ switch($section){
 
   case 'publications':
     if ($op === 'create'){
-      $data['publications'][] = [ 'year'=>trim($_POST['year']??''), 'text'=>trim($_POST['text']??'') ];
+      $data['publications'][] = [
+        'year' => trim($_POST['year'] ?? ''),
+        'text' => trim($_POST['text'] ?? ''),
+        'sinta_link' => trim($_POST['sinta_link'] ?? ''),
+      ];
     } elseif ($op === 'update'){
       $i = intval($_POST['index'] ?? -1); if (isset($data['publications'][$i])){
-        $data['publications'][$i]['year'] = trim($_POST['year']??'');
-        $data['publications'][$i]['text'] = trim($_POST['text']??'');
+        $data['publications'][$i]['year'] = trim($_POST['year'] ?? '');
+        $data['publications'][$i]['text'] = trim($_POST['text'] ?? '');
+        $data['publications'][$i]['sinta_link'] = trim($_POST['sinta_link'] ?? '');
       }
     } elseif ($op === 'delete'){
       $i = intval($_POST['index'] ?? -1); if (isset($data['publications'][$i])) array_splice($data['publications'],$i,1);
+    }
+    break;
+
+  case 'news':
+    if ($op === 'create'){
+      $title = trim($_POST['title'] ?? '');
+      $body = trim($_POST['content'] ?? '');
+      $excerpt = trim($_POST['excerpt'] ?? '');
+      $date = trim($_POST['date'] ?? '');
+      if ($date === '') { $date = date('Y-m-d'); }
+      if ($excerpt === '' && $body !== ''){
+        $plain = strip_tags($body);
+        $excerpt = mb_substr($plain, 0, 140) . (mb_strlen($plain) > 140 ? '…' : '');
+      }
+      $image = upload_image('image');
+      $data['news'][] = [
+        'id' => new_id(),
+        'title' => $title,
+        'content' => $body,
+        'excerpt' => $excerpt,
+        'image' => $image,
+        'date' => $date
+      ];
+    } elseif ($op === 'delete'){
+      $i = intval($_POST['index'] ?? -1); if (isset($data['news'][$i])) array_splice($data['news'],$i,1);
     }
     break;
 
