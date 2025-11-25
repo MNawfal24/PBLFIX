@@ -291,17 +291,57 @@
   </section>
 
   <!-- Footer -->
-  <footer class="relative overflow-hidden bg-white border-t border-sky-100">
-    <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-sm text-navy-900/70 flex items-center gap-2">
-          <img src="assets/img/Logo.png" class="h-5 w-5 rounded" alt="" onerror="this.style.display='none'" />
-          &copy; <span id="year"></span> Business Analytics Laboratory – Polinema
-          IT
-        </p>
-        <div class="flex items-center gap-4 text-sm">
-          <a href="#home" class="hover:text-sky-500">Back to top</a>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-main">
+        <div class="footer-logo">
+          <div class="flex items-center space-x-2">
+            <img src="assets/images/logo-white.png" alt="Lab Logo" />
+            <span style="font-size: 1.25rem; font-weight: 700;">Business Analytics Lab</span>
+          </div>
+          <p class="footer-description">
+            Laboratorium Analitik Bisnis yang berfokus pada penelitian dan pengembangan solusi berbasis data untuk mendukung pengambilan keputusan bisnis yang lebih baik.
+          </p>
         </div>
+        
+        <div class="footer-links">
+          <div>
+            <h3>Tautan Cepat</h3>
+            <ul>
+              <li><a href="#home">Beranda</a></li>
+              <li><a href="#profile">Profil</a></li>
+              <li><a href="#research">Penelitian</a></li>
+              <li><a href="#publications">Publikasi</a></li>
+              <li><a href="#gallery">Galeri</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3>Layanan</h3>
+            <ul>
+              <li><a href="booking.php">Peminjaman Lab</a></li>
+              <li><a href="#">Konsultasi Riset</a></li>
+              <li><a href="#">Pelatihan</a></li>
+              <li><a href="#">Kerjasama</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div>
+          <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; color: #ffffff;">Kontak</h3>
+          <address style="font-style: normal; color: rgba(255, 255, 255, 0.7); font-size: 0.875rem; line-height: 1.6;">
+            <p>Gedung Teknologi Informasi Lt. 3</p>
+            <p>Politeknik Negeri Malang</p>
+            <p>Jalan Soekarno-Hatta No. 9, Malang</p>
+            <p>Email: balab@polinema.ac.id</p>
+            <p>Telp: (0341) 404424</p>
+          </address>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="footer-copyright">&copy; 2023 Business Analytics Lab - Teknologi Informasi Polinema. All rights reserved.</p>
+        <a href="#home" class="hover:text-white">Back to top</a>
       </div>
     </div>
   </footer>
@@ -337,5 +377,24 @@
 
   <script src="assets/app.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  
+  <!-- Initialize any necessary scripts -->
+  <script>
+    // Pastikan konten dimuat setelah DOM selesai dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      // Panggil fungsi loadContent yang sudah ada di app.js
+      if (typeof loadContent === 'function') {
+        loadContent();
+      }
+      
+      // Inisialisasi komponen lain yang mungkin diperlukan
+      if (typeof initPeminjamanPage === 'function') {
+        initPeminjamanPage();
+      }
+      
+      // Debug: Tampilkan pesan ke console
+      console.log('App initialized');
+    });
+  </script>
 </body>
 </html>

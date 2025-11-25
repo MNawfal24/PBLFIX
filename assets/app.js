@@ -266,4 +266,163 @@ function initPeminjamanPage(){
   }
 }
 
-document.addEventListener('DOMContentLoaded', initPeminjamanPage);
+// Gallery navigation
+function initGalleryNavigation() {
+  const galleryGrid = document.getElementById('galleryGrid');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  
+  if (!galleryGrid || !prevBtn || !nextBtn) return;
+  
+  const galleryItems = Array.from(galleryGrid.children);
+  if (galleryItems.length === 0) return;
+  
+  let itemWidth = galleryItems[0].offsetWidth + 16; // Width + gap
+  let currentIndex = 0;
+  let maxVisibleItems = Math.floor(galleryGrid.parentElement.offsetWidth / itemWidth);
+  let maxIndex = Math.max(0, galleryItems.length - maxVisibleItems);
+  
+  // Function to update gallery position
+  function updateGallery() {
+    // Pastikan currentIndex tetap dalam batas yang valid
+    currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+    
+    // Hitung offset yang tepat berdasarkan item yang terlihat
+    const offset = currentIndex * itemWidth;
+    galleryGrid.style.transform = `translateX(-${offset}px)`;
+    
+    // Update tombol navigasi (hanya visual, tidak dinonaktifkan)
+    prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+    nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+  }
+  
+  // Event listeners for navigation buttons
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateGallery();
+    }
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateGallery();
+    }
+  });
+  
+  // Initialize gallery
+  galleryGrid.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+  
+  // Handle window resize
+  let resizeTimer;
+  function handleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      itemWidth = galleryItems[0].offsetWidth + 16;
+      maxVisibleItems = Math.floor(galleryGrid.parentElement.offsetWidth / itemWidth);
+      maxIndex = Math.max(0, galleryItems.length - maxVisibleItems);
+      updateGallery();
+    }, 250);
+  }
+  
+  // Initialize and set up event listeners
+  window.addEventListener('resize', handleResize);
+  window.addEventListener('load', () => {
+    // Tunggu sampai semua gambar selesai dimuat
+    const images = galleryGrid.querySelectorAll('img');
+    let loadedImages = 0;
+    
+    const checkAllLoaded = () => {
+      loadedImages++;
+      if (loadedImages === images.length) {
+        handleResize();
+      }
+    };
+    
+    images.forEach(img => {
+      if (img.complete) {
+        checkAllLoaded();
+      } else {
+        img.addEventListener('load', checkAllLoaded);
+      }
+    });
+    
+    if (images.length === 0) handleResize();
+  });
+  
+  // Initial update
+  updateGallery();
+}
+
+// Initialize gallery carousel
+function initGalleryCarousel() {
+  const galleryTrack = document.getElementById('galleryTrack');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  
+  if (!galleryTrack || !prevBtn || !nextBtn) return;
+  
+  const galleryItems = Array.from(galleryTrack.children);
+  if (galleryItems.length === 0) return;
+  
+  let currentIndex = 0;
+  const itemWidth = galleryItems[0].offsetWidth + 16; // Width + gap
+  let maxVisibleItems = Math.floor(galleryTrack.parentElement.offsetWidth / itemWidth);
+  let maxIndex = Math.max(0, galleryItems.length - maxVisibleItems);
+  
+  // Function to update gallery position
+  function updateGallery() {
+    // Ensure currentIndex stays within valid bounds
+    currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+    
+    // Calculate the exact offset based on visible items
+    const offset = currentIndex * itemWidth;
+    galleryTrack.style.transform = `translateX(-${offset}px)`;
+    
+    // Update navigation buttons (visual feedback only, not disabled)
+    prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+    nextBtn.style.opacity = currentIndex >= maxIndex ? '0.5' : '1';
+  }
+  
+  // Event listeners for navigation buttons
+  prevBtn.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateGallery();
+    }
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateGallery();
+    }
+  });
+  
+  // Initialize gallery
+  galleryTrack.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+  
+  // Handle window resize
+  let resizeTimer;
+  function handleResize() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      maxVisibleItems = Math.floor(galleryTrack.parentElement.offsetWidth / itemWidth);
+      maxIndex = Math.max(0, galleryItems.length - maxVisibleItems);
+      updateGallery();
+    }, 250);
+  }
+  
+  window.addEventListener('resize', handleResize);
+  
+  // Initial update
+  updateGallery();
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  initPeminjamanPage();
+  initGalleryNavigation();
+  initGalleryCarousel();
+});

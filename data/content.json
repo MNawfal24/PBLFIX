@@ -1,5 +1,5 @@
 {
-    "vision": "Menjadi laboratorium unggul rujukan nasional\r\nsebagai inkubator solusi cerdas berbasis data,\r\nyang berfungsi sebagai mitra strategis industri\r\nuntuk mengakselerasi transformasi bisnis dan\r\npengambilan keputusan yang berdampak",
+    "vision": "Menjadi laboratorium unggul rujukan nasional\r\nsebagai inkubator solusi cerdas berbasis data,\r\nyang berfungsi sebagai mitra strategis industri\r\nuntuk mengakselerasi transformasi bisnis dan\r\npengambilan keputusan yang berdampak\r\n\r\ntesting rubah",
     "team": [
         {
             "name": "Rakhmat Arianto",
@@ -11,7 +11,8 @@
         "💻 High-spec Workstations",
         "🧠 GPU for ML Training",
         "🗃️ Data Repositories",
-        "🖥️ BI Dashboard Screens"
+        "🖥️ BI Dashboard Screens",
+        "Testing 1"
     ],
     "research": [
         {
@@ -25,6 +26,10 @@
         {
             "title": "Decision Intelligence",
             "desc": "Optimization and simulation for planning."
+        },
+        {
+            "title": "Testing",
+            "desc": "Testing upload"
         }
     ],
     "activities": [
@@ -82,9 +87,15 @@
             "caption": "testing 5"
         }
     ],
-    "whatWeDo": [],
-    "bookingNotice": "Hello World",
-    "siteName": "Business Analytics Lab",
+    "whatWeDo": [
+        {
+            "icon": "Testing",
+            "title": "testing 123",
+            "desc": "testing 12345"
+        }
+    ],
+    "bookingNotice": "Testing rubah CMS",
+    "siteName": "Laboratorium Business analytics",
     "siteLogo": "uploads\/img_691af173901a8.jpg",
-    "version": 1763438385
+    "version": 1764062483
 }
