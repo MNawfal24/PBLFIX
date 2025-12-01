@@ -5,6 +5,11 @@
             "name": "Rakhmat Arianto",
             "role": "Kepala  Laboratorium",
             "photo": null
+        },
+        {
+            "name": "testing",
+            "role": "test",
+            "photo": "uploads\/img_692d2015b0d68.png"
         }
     ],
     "facilities": [
@@ -62,25 +67,12 @@
     ],
     "publications": [
         {
-            "year": "2025",
-            "text": "Robust Sales Forecasting with Hybrid Models — Journal of Applied Analytics"
-        },
-        {
-            "year": "2024",
-            "text": "Topic Modeling of Customer Feedback in Retail — International Conf. on Data"
-        },
-        {
-            "year": "2023",
-            "text": "Decision Intelligence for Inventory Planning — Regional Tech Symposium"
-        },
-        {
             "year": "2020",
             "text": "Testing 1",
             "sinta_link": "https:\/\/www.polinema.ac.id\/"
         }
     ],
     "gallery": [
-        "uploads\/img_691082f93459c.jpg",
         {
             "src": "uploads\/img_6910855f7797f.jpg",
             "caption": "testing 1"
@@ -112,5 +104,5 @@
     "bookingNotice": "Testing rubah CMS",
     "siteName": "Laboratorium Business analytics",
     "siteLogo": "uploads\/img_691af173901a8.jpg",
-    "version": 1764072471
+    "version": 1764565013
 }

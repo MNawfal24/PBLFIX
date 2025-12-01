@@ -24,6 +24,7 @@ $csrf = csrf_token();
       <div class="cms-row" style="gap:8px">
         <a class="cms-btn-outline" href="../">View Site</a>
         <a class="cms-btn-outline" href="peminjaman-manage.php">Kelola Peminjaman</a>
+        <a class="cms-btn-outline" href="kelola_bidang.php">Kelola Bidang</a>
         <a class="cms-btn-outline" href="admin-manage.php">Kelola Admin</a>
         <form method="post" action="logout.php"><button class="cms-btn-outline" type="submit">Logout</button></form>
       </div>

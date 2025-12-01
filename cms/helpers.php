@@ -138,3 +138,22 @@ function save_admins($admins){
   if (!is_dir(dirname($file))) mkdir(dirname($file), 0775, true);
   file_put_contents($file, json_encode(array_values($admins), JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
 }
+
+// --- Bidang (Field) helpers ---
+function bidang_path(){ return __DIR__ . '/../data/bidang.json'; }
+
+function load_bidang(){
+  $file = bidang_path();
+  if (!file_exists($file)) return [];
+  $json = file_get_contents($file);
+  $data = json_decode($json, true);
+  return is_array($data) ? $data : [];
+}
+
+function save_bidang($list){
+  $file = bidang_path();
+  if (!is_dir(dirname($file))) mkdir(dirname($file), 0775, true);
+  // pastikan ID berurutan rapi
+  $list = array_values($list);
+  file_put_contents($file, json_encode($list, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+}
