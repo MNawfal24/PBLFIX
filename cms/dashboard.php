@@ -23,6 +23,8 @@ $csrf = csrf_token();
       </div>
       <div class="cms-row" style="gap:8px">
         <a class="cms-btn-outline" href="../">View Site</a>
+        <a class="cms-btn-outline" href="peminjaman-manage.php">Kelola Peminjaman</a>
+        <a class="cms-btn-outline" href="admin-manage.php">Kelola Admin</a>
         <form method="post" action="logout.php"><button class="cms-btn-outline" type="submit">Logout</button></form>
       </div>
     </div>
@@ -288,11 +290,11 @@ $csrf = csrf_token();
             <td><?php echo htmlspecialchars($p['text']??''); ?></td>
             <td>
               <?php if (!empty($p['sinta_link'])): ?>
-                <a href="<?php echo htmlspecialchars($p['sinta_link']); ?>" target="_blank" rel="noopener noreferrer">
+                <a href="<?php echo htmlspecialchars($p['sinta_link']); ?>">
                   <?php echo htmlspecialchars($p['sinta_link']); ?>
                 </a>
               <?php else: ?>
-                <span class="cms-note">(no SINTA link)</span>
+                <span class="cms-note">(tidak ada link)</span>
               <?php endif; ?>
             </td>
             <td>

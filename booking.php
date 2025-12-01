@@ -82,14 +82,21 @@ if (isset($_GET['status'])){
     elseif ($_GET['status'] === 'reset_err'){ $status_msg = 'Gagal mereset jadwal.'; $status_ok = false; }
 }
 
-// Handle incoming booking (GET from index form)
-$name = trim($_GET['name'] ?? '');
-$id   = trim($_GET['id'] ?? '');
-$date = trim($_GET['date'] ?? '');
-$start = trim($_GET['start'] ?? '');
-$end   = trim($_GET['end'] ?? '');
+// Handle incoming booking (form -> POST, fallback ke GET untuk kompatibilitas lama)
+$src   = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
+$name  = trim($src['name'] ?? '');
+$id    = trim($src['id'] ?? '');
+$email = trim($src['email'] ?? '');
+$date  = trim($src['date'] ?? '');
+$start = trim($src['start'] ?? '');
+$end   = trim($src['end'] ?? '');
+// reason/keperluan optional but recommended
+$reason = trim($src['reason'] ?? ($src['keperluan'] ?? ''));
 
-if ($name !== '' && $id !== '' && $date !== '' && $start !== '' && $end !== '') {
+// Flag untuk mengetahui apakah ada data booking yang baru dikirim
+$has_submission = ($name !== '' && $id !== '' && $email !== '' && $date !== '' && $start !== '' && $end !== '');
+
+if ($name !== '' && $id !== '' && $email !== '' && $date !== '' && $start !== '' && $end !== '') {
     // Normalize date/time
     $dt_valid = preg_match('/^\d{4}-\d{2}-\d{2}$/', $date);
     $st_valid = in_array($start, $SLOTS, true);
@@ -119,7 +126,17 @@ if ($name !== '' && $id !== '' && $date !== '' && $start !== '' && $end !== '') 
                 $status_msg = 'Sebagian/semua slot pada rentang waktu tersebut sudah terisi.';
                 $status_ok = false;
             } else {
-                $entry = ['name' => $name, 'id' => $id, 'ts' => time(), 'span' => $iEnd - $iStart, 'range' => [$start, $end]];
+                $entry = [
+                    'name'    => $name,
+                    'id'      => $id,
+                    'email'   => $email,
+                    'reason'  => $reason,
+                    'ts'      => time(),
+                    'span'    => $iEnd - $iStart,
+                    'range'   => [$start, $end],
+                    'status'  => 'pending'
+                ];
+
                 for ($i = $iStart; $i < $iEnd; $i++) {
                     $bookings[$key][$SLOTS[$i]] = $entry;
                 }
@@ -165,6 +182,8 @@ for ($i = 0, $count = 0; $count < 10; $i++) {
 
 <body class="booking-body">
     <div class="booking-wrap">
+        <a href="index.html" class="btn-back" target="_top">Kembali ke Beranda</a>
+
         <div class="booking-row">
             <h2>Jadwal Peminjaman Lab</h2>
             <div></div>
@@ -175,6 +194,17 @@ for ($i = 0, $count = 0; $count < 10; $i++) {
             </div>
         <?php endif; ?>
         <p class="booking-note">Menampilkan 2 minggu (hari kerja Senin–Jumat). Slot terisi ditandai merah.</p>
+
+        <?php if ($has_submission): ?>
+            <div class="booking-summary card" style="margin-bottom:12px;">
+                <h3 style="margin-top:0;margin-bottom:4px;">Detail Peminjaman Terakhir</h3>
+                <p style="margin:2px 0;"><strong>Nama:</strong> <?php echo htmlspecialchars($name.' ('.$id.')'); ?></p>
+                <p style="margin:2px 0;"><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
+                <p style="margin:2px 0;"><strong>Keperluan:</strong> <?php echo htmlspecialchars($reason ?: '-'); ?></p>
+                <p style="margin:2px 0;"><strong>Tanggal:</strong> <?php echo htmlspecialchars($date); ?></p>
+                <p style="margin:2px 0;"><strong>Waktu:</strong> <?php echo htmlspecialchars($start.' - '.$end); ?></p>
+            </div>
+        <?php endif; ?>
 
         <?php if ($status_ok !== null): ?>
             <div class="booking-alert <?php echo $status_ok ? 'booking-alert-ok' : 'booking-alert-err'; ?>"><?php echo htmlspecialchars($status_msg); ?></div>
@@ -193,7 +223,15 @@ for ($i = 0, $count = 0; $count < 10; $i++) {
                     <h4 class="booking-col-header"><?php echo day_name_id($ts); ?></h4>
                     <div class="booking-col-date"><?php echo date_id($ts); ?></div>
                     <div class="booking-col-body">
-                        <?php foreach ($SLOTS as $slot): $busy = isset($bookings[$d][$slot]); ?>
+                        <?php foreach ($SLOTS as $slot):
+                            $entry = $bookings[$d][$slot] ?? null;
+                            if (is_array($entry)){
+                                $status = $entry['status'] ?? 'approved'; // booking lama tanpa status dianggap approved
+                                $busy = ($status === 'approved');
+                            } else {
+                                $busy = false;
+                            }
+                        ?>
                             <div class="booking-slot <?php echo $busy ? 'busy' : 'free'; ?>">
                                 <?php echo htmlspecialchars($slot); ?>
                             </div>

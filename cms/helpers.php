@@ -121,3 +121,20 @@ function download_image_url($url){
 }
 
 function new_id(){ return bin2hex(random_bytes(6)); }
+
+// --- Admin management helpers ---
+function admins_path(){ return __DIR__ . '/../data/admins.json'; }
+
+function load_admins(){
+  $file = admins_path();
+  if (!file_exists($file)) return [];
+  $json = file_get_contents($file);
+  $data = json_decode($json, true);
+  return is_array($data) ? $data : [];
+}
+
+function save_admins($admins){
+  $file = admins_path();
+  if (!is_dir(dirname($file))) mkdir(dirname($file), 0775, true);
+  file_put_contents($file, json_encode(array_values($admins), JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE));
+}

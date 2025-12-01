@@ -23,15 +23,21 @@
   <!-- KONTEN UTAMA -->
   <div class="peminjaman-container">
     <!-- FORM PEMINJAMAN -->
-    <form class="peminjaman-card" action="booking.php" method="get">
+    <form id="peminjamanForm" class="peminjaman-card" action="booking.php" method="post">
       <label class="peminjaman-label">Nama</label>
       <input class="peminjaman-input" type="text" name="name" placeholder="Nama peminjam" required>
 
       <label class="peminjaman-label">NIM / NIP</label>
       <input class="peminjaman-input" type="text" name="id" placeholder="NIM atau NIP" required>
 
+      <label class="peminjaman-label">Email (Gmail)</label>
+      <input class="peminjaman-input" type="email" name="email" required placeholder="Masukkan Gmail Anda">
+
       <label class="peminjaman-label">Tanggal</label>
       <input class="peminjaman-input" type="date" name="date" required>
+
+      <label class="peminjaman-label">Keperluan</label>
+      <textarea class="peminjaman-input" name="keperluan" rows="3" placeholder="Tuliskan keperluan peminjaman" required></textarea>
 
       <label class="peminjaman-label">Mulai</label>
       <select class="peminjaman-select" name="start" required>
@@ -63,7 +69,7 @@
         <h3>Jadwal Peminjaman</h3>
         <button id="refreshCal" type="button" class="btn-primary peminjaman-refresh-btn">Refresh Jadwal</button>
       </div>
-      <iframe id="bookingFrame" src="booking.php" class="peminjaman-iframe"></iframe>
+      <iframe id="bookingFrame" name="bookingFrame" src="booking.php" class="peminjaman-iframe"></iframe>
     </div>
   </div>
   <script src="assets/app.js"></script>

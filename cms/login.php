@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__.'/helpers.php';
 
 if (empty($_SESSION['csrf'])) {
   $_SESSION['csrf'] = bin2hex(random_bytes(16));
@@ -7,17 +7,39 @@ if (empty($_SESSION['csrf'])) {
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $u = $_POST['username'] ?? '';
+  $u = trim($_POST['username'] ?? '');
   $p = $_POST['password'] ?? '';
   $csrf = $_POST['csrf'] ?? '';
   if (!hash_equals($_SESSION['csrf'], $csrf)) {
     $error = 'Invalid session token.';
-  } else if ($u === 'admin' && $p === 'admin123') {
-    $_SESSION['admin'] = true;
-    header('Location: dashboard.php');
-    exit;
   } else {
-    $error = 'Username atau password salah.';
+    $admins = load_admins();
+    $authOk = false;
+
+    // Jika sudah ada admins.json, pakai itu
+    if (!empty($admins)){
+      foreach ($admins as $a){
+        if (!isset($a['username'], $a['password'])) continue;
+        if ($a['username'] === $u && password_verify($p, $a['password'])){
+          $authOk = true;
+          break;
+        }
+      }
+    } else {
+      // Fallback legacy admin jika belum ada data admin
+      if ($u === 'admin' && $p === 'admin123'){
+        $authOk = true;
+      }
+    }
+
+    if ($authOk){
+      $_SESSION['admin'] = true;
+      $_SESSION['username'] = $u;
+      header('Location: dashboard.php');
+      exit;
+    } else {
+      $error = 'Username atau password salah.';
+    }
   }
 }
 ?>

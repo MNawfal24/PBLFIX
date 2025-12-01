@@ -287,6 +287,7 @@ function initPeminjamanPage(){
   const noticeText = document.getElementById('bookingNoticeText');
   const bookingFrame = document.getElementById('bookingFrame');
   const refreshBtn = document.getElementById('refreshCal');
+  const form = document.getElementById('peminjamanForm');
 
   if (!bookingFrame) return; // bukan di halaman peminjaman
 
@@ -306,6 +307,18 @@ function initPeminjamanPage(){
       const url = new URL(bookingFrame.src, window.location.href);
       url.searchParams.set('ts', Date.now().toString());
       bookingFrame.src = url.toString();
+    });
+  }
+
+  // Intercept submit form kiri agar hasil dan jadwal muncul di kotak kanan (iframe)
+  if (form){
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const fd = new FormData(form);
+      const params = new URLSearchParams(fd);
+      // gunakan GET ke booking.php agar backend bisa menampilkan ringkasan + jadwal
+      const url = 'booking.php?' + params.toString();
+      bookingFrame.src = url;
     });
   }
 }
